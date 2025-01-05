@@ -17,8 +17,11 @@
     <color name="green">#43B100</color>
 
     //my own
-    <color name="bottom_bg">#1C1C1C</color>
+    <color name="top_bg">#1E1E1E</color>
+    <color name="bottom_bg">#1E1E1E</color>
+    <color name="icon_bg">#6A6A6A</color>
     <color name="s_option_green">#508157</color>
-    <color name="white_bg">#6A6A6A</color>
+    <color name="white_bg">#3D3D3D</color>
     <color name="option_bg">#706F6F</color>
+    <color name="dd_container">#3D3D3D</color>
 </resources>

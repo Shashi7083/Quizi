@@ -127,13 +127,26 @@ fun QuizInterface(
 //                .fillMaxSize(),
             ,verticalArrangement = Arrangement.SpaceBetween
         ) {
-
-            val options = listOf(
+            var options = listOf(
                 "A" to quizState.shuffledOptions[0].replace("&quot;","\"").replace("&#039", "\'"),
                 "B" to quizState.shuffledOptions[1].replace("&quot;","\"").replace("&#039", "\'"),
-                "C" to quizState.shuffledOptions[2].replace("&quot;","\"").replace("&#039", "\'"),
-                "D" to quizState.shuffledOptions[3].replace("&quot;","\"").replace("&#039", "\'")
             )
+
+            if(quizState.shuffledOptions.size <=2){
+                 options = listOf(
+                    "A" to quizState.shuffledOptions[0].replace("&quot;","\"").replace("&#039", "\'"),
+                    "B" to quizState.shuffledOptions[1].replace("&quot;","\"").replace("&#039", "\'"),
+
+                )
+            } else{
+                 options = listOf(
+                    "A" to quizState.shuffledOptions[0].replace("&quot;","\"").replace("&#039", "\'"),
+                    "B" to quizState.shuffledOptions[1].replace("&quot;","\"").replace("&#039", "\'"),
+                    "C" to quizState.shuffledOptions[2].replace("&quot;","\"").replace("&#039", "\'"),
+                    "D" to quizState.shuffledOptions[3].replace("&quot;","\"").replace("&#039", "\'")
+                )
+            }
+
 
             Column {
                 options.forEachIndexed{ index, (optionNumber , optionText) ->

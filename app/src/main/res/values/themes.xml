@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Quizi" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Quizi" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:statusBarColor">@android:color/transparent</item>
+<!--        &lt;!&ndash; Ensure content draws behind the status bar &ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:windowTranslucentStatus">true</item>&ndash;&gt;-->
+<!--        &lt;!&ndash; Ensure the content draws behind the status bar &ndash;&gt;-->
+<!--        <item name="android:windowFullscreen">false</item>-->
+<!--        &lt;!&ndash; Use dark icons for light mode &ndash;&gt;-->
+<!--        <item name="android:windowLightStatusBar">true</item>-->
+    </style>
 </resources>

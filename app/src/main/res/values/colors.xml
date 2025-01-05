@@ -24,9 +24,13 @@
     <color name="vivid_orange">#F76F36</color>
     <color name="s_option_green">#C1FED2</color>
     <color name="fixed_white">#FFFFFFFF</color>
+    <color name="fixed_black">#FF000000</color>
     <color name="white_bg">#FFFFFFFF</color>
+    <color name="icon_bg">#FFFFFFFF</color>
     <color name="option_bg">#FFFFFFFF</color>
     <color name="option_stroke">#B0B0B0</color>
     <color name="s_option_stroke">#005501</color>
+    <color name="dd_stroke">#505050</color>
+    <color name="dd_container">#FDFDFD</color>
 
 </resources>

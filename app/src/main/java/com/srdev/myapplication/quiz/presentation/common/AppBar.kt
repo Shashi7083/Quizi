@@ -67,7 +67,8 @@ fun AppBar(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Spacer(modifier = Modifier.height(statusBarHeightDp))
+        /// we are added status bar background so no need this
+//        Spacer(modifier = Modifier.height(statusBarHeightDp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,7 +82,7 @@ fun AppBar(
                 modifier = Modifier
                     .size(48.dp)
                     .background(
-                        colorResource(id = R.color.white).copy(alpha = 0.8f),
+                        colorResource(id = R.color.icon_bg).copy(alpha = 0.8f),
                         shape = CircleShape
                     )
                     .clip(CircleShape)
@@ -111,7 +112,7 @@ fun AppBar(
                 modifier = Modifier
                     .size(48.dp)
                     .background(
-                        colorResource(id = R.color.white).copy(alpha = 0.8f),
+                        colorResource(id = R.color.icon_bg).copy(alpha = 0.8f),
                         shape = CircleShape
                     )
                     .clickable {

@@ -17,6 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -31,19 +33,18 @@ fun HomeHeader(){
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(Dimens.HomeTopBoxHeight)
-            .background(
-                color = colorResource(id = R.color.dark_slate_blue),
-                shape = RoundedCornerShape(
-                    bottomStart = Dimens.ExtraLargeCornerRadius,
-                    bottomEnd = Dimens.ExtraLargeCornerRadius
-                )
-            )
+           // .height(Dimens.HomeTopBoxHeight)
+           // .background(color = Color.Red)
+            .clip(RoundedCornerShape(
+                bottomStart = Dimens.ExtraLargeCornerRadius,
+                bottomEnd = Dimens.ExtraLargeCornerRadius
+            )),
+        contentAlignment = Alignment.TopCenter
     ){
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = Dimens.LargePadding),
+                .padding(top = Dimens.SmallPadding),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ){

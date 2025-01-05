@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -23,7 +24,9 @@ import com.srdev.myapplication.quiz.presentation.utils.Dimens
 fun ButtonBox(
     text : String,
     padding : Dp,
-    onButtonClick : ()->Unit
+    containerColor: Color = colorResource(id = R.color.vivid_orange),
+    textColor : Color = colorResource(id = R.color.fixed_white),
+    onButtonClick : ()->Unit,
 ){
     Box(
         modifier = Modifier
@@ -31,14 +34,15 @@ fun ButtonBox(
             .fillMaxWidth()
             .height(Dimens.MediumBoxHeight)
             .clip(RoundedCornerShape(Dimens.LargeCornerRadius))
-            .background(colorResource(id = R.color.blue_grey))
+            .background(containerColor)
             .clickable { onButtonClick() },
         contentAlignment = Alignment.Center
     ){
         Text(
             text = text,
             fontSize = Dimens.MediumTextSize,
-            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+            color = textColor
         )
     }
 }

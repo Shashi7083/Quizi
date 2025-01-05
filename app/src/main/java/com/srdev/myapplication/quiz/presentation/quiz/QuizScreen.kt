@@ -96,7 +96,10 @@ fun QuizScreen(
     }
 
 
-
+/**
+ * we have added background color for the status bar  from QuiziTheme so no need transparen for
+ * this page
+ *
     //system ui controller for changing status bar color
     val systemUiController = rememberSystemUiController()
 
@@ -110,6 +113,7 @@ fun QuizScreen(
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         WindowCompat.setDecorFitsSystemWindows(activity.window, false)
     }
+    */
 
 
     var showBackHandler by remember { mutableStateOf(false) }
@@ -327,6 +331,7 @@ fun quizFetched(state: QuizScreenState): Boolean {
 //        quizDifficulty = "Easy",
 //        quiztype = "easy",
 //        event = {},
-//        state = QuizScreenState()
+//        state = QuizScreenState(),
+//        navController = rememberNavController()
 //    )
 //}

@@ -1,12 +1,14 @@
 package com.srdev.myapplication.quiz.presentation.score
 
+import android.app.Activity
+import android.content.res.Configuration
 import android.os.Build
+import android.view.View
 import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,7 +24,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,16 +33,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RenderEffect
-import androidx.compose.ui.graphics.Shader
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -54,6 +49,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -61,10 +57,10 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.srdev.myapplication.R
 import com.srdev.myapplication.quiz.presentation.common.AppBar
 import com.srdev.myapplication.quiz.presentation.common.BackHandlerWithConfirmation
-import com.srdev.myapplication.quiz.presentation.common.ButtonBox
 import com.srdev.myapplication.quiz.presentation.navGraph.Routes
 import com.srdev.myapplication.quiz.presentation.quiz.component.noRippleClickable
 import java.text.DecimalFormat
@@ -76,6 +72,8 @@ fun ScoreScreen(
     numOfCorrectAns : Int,
     navController: NavController
 ){
+
+
 
 
     val gradientBrush = Brush.verticalGradient(
@@ -118,7 +116,7 @@ fun ScoreScreen(
             append("and from that ")
         }
         withStyle(style = SpanStyle(color = colorResource(id = R.color.green))){
-            append("3 answers ")
+            append("${numOfCorrectAns} answers ")
         }
 
         withStyle(style = SpanStyle(color = colorResource(id = R.color.black))){
@@ -157,7 +155,7 @@ fun ScoreScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(15.dp),
+                .padding(horizontal = 15.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
@@ -259,7 +257,8 @@ fun ScoreScreen(
                             text = "Quiz completed successfully",
                             fontWeight = FontWeight.Bold,
                             fontSize = 15.sp,
-                            textAlign = TextAlign.Center
+                            textAlign = TextAlign.Center,
+                            color = colorResource(id = R.color.black)
                         )
 
 
@@ -280,6 +279,7 @@ fun ScoreScreen(
                                 text = "Share with us :",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp,
+                                color = colorResource(id = R.color.black)
                             )
                             Spacer(modifier = Modifier.width(20.dp))
 
@@ -320,7 +320,12 @@ fun ScoreScreen(
                         Button(
                             onClick ={
                                 //navigate to Home Screen
-                                  goToHome(navController=navController)
+
+                                if(sharedOnSocialMedia.value){
+                                    goToHome(navController = navController)
+                                }else{
+                                    showDialog.value = true
+                                }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -334,7 +339,8 @@ fun ScoreScreen(
                             )
                         ) {
                             Text(
-                                text = "Explore More Quizzes, Create more"
+                                text = "Explore More Quizzes, Create more",
+                                color = colorResource(id = R.color.fixed_white)
                             )
                         }
                     }
@@ -349,10 +355,10 @@ fun ScoreScreen(
 
     if(showDialog.value){
         BackHandlerWithConfirmation (
-            title = "Remove Score",
+            title = "Share Score",
             text = "Are you sure, you don't want to share your achivements ?",
-            confirmText = "Go To Home",
-            dismissText = "Cancel",
+            confirmText = "Go to home",
+            dismissText = "Share",
             onExit = {
                 goToHome(navController = navController)
 
@@ -501,7 +507,10 @@ fun goToHome( navController: NavController){
 @RequiresApi(Build.VERSION_CODES.Q)
 @Preview
 @Composable
-fun p(){
+fun p(
+    name: String = "Night",
+    uiMode: Int = Configuration.UI_MODE_NIGHT_YES
+){
     ScoreScreen(
         numOfQuestions = 16,
         numOfCorrectAns = 3,

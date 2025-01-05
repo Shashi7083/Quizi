@@ -13,7 +13,9 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.colorResource
 import androidx.core.view.WindowCompat
+import com.srdev.myapplication.R
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -44,6 +46,8 @@ fun QuiziTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+
+    val statusBarColor = colorResource(id = R.color.top_bg)
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -57,8 +61,14 @@ fun QuiziTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = StatusBar.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+//            window.statusBarColor = StatusBar.toArgb()
+            // i have added this color
+            window.statusBarColor = statusBarColor.toArgb()
+            // this for for appear white icon and text in light mode and balck in dark
+           // WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+
+            // Adjust icon and text color based on the theme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
@@ -68,3 +78,4 @@ fun QuiziTheme(
         content = content
     )
 }
+

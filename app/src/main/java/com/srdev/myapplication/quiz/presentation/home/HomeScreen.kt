@@ -1,21 +1,29 @@
 package com.srdev.myapplication.quiz.presentation.home
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.srdev.myapplication.R
 import com.srdev.myapplication.quiz.presentation.common.AppDropDownMenu
 import com.srdev.myapplication.quiz.presentation.common.ButtonBox
 import com.srdev.myapplication.quiz.presentation.home.component.HomeHeader
+import com.srdev.myapplication.quiz.presentation.home.component.homeFab.FabUI
 import com.srdev.myapplication.quiz.presentation.navGraph.Routes
 import com.srdev.myapplication.quiz.presentation.utils.Constants
 import com.srdev.myapplication.quiz.presentation.utils.Dimens
@@ -38,63 +46,83 @@ fun HomeScreen(
     event : (HomeScreenEvent)->Unit,
     navController: NavController
 ){
-    /** Column to structure the layout vertically **/
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()) /** Enables vertical scrolling for smaller screen **/
 
+    val gradientBrush = Brush.verticalGradient(
+        colors = listOf(
+            colorResource(id = R.color.top_bg), // Start color
+            colorResource(id = R.color.bottom_bg) // End color
+        )
+    )
+
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            FabUI()
+        },
     ) {
-        /** Header for the home screen */
-        HomeHeader()
+        /** Column to structure the layout vertically **/
+        Column(
+            modifier = Modifier
+                .background(
+                    brush = gradientBrush
+                )
+                .padding(it)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()) /** Enables vertical scrolling for smaller screen **/
 
-        Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
+        ) {
+            /** Header for the home screen */
+            HomeHeader()
 
-        /* Dropdown menu for selecting number of questions*/
-        AppDropDownMenu(menuName = "Number of Questions", menuList = Constants.numbersAsString, text = state.numberOfQuiz.toString(), onDropDownClick = {
-            event(HomeScreenEvent.SetNumberOfQuizzes(it.toInt())) /* updates the number of question **/
-        })
+            Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
+
+            /* Dropdown menu for selecting number of questions*/
+            AppDropDownMenu(menuName = "Number of Questions", menuList = Constants.numbersAsString, text = state.numberOfQuiz.toString(), onDropDownClick = {
+                event(HomeScreenEvent.SetNumberOfQuizzes(it.toInt())) /* updates the number of question **/
+            })
 
 
-        Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
+            Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
 
-        /* Dropdown menu for selecting quiz category */
-        AppDropDownMenu(menuName = "Select Category:", menuList = Constants.categories, text = state.category, onDropDownClick = {
-            event(HomeScreenEvent.SetQuizCategory(it))   /*updates the Quiz Category */
-        })
+            /* Dropdown menu for selecting quiz category */
+            AppDropDownMenu(menuName = "Select Category:", menuList = Constants.categories, text = state.category, onDropDownClick = {
+                event(HomeScreenEvent.SetQuizCategory(it))   /*updates the Quiz Category */
+            })
 
-        Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
+            Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
 
-        /* Dropdown menu for selecting the difficulty of quiz*/
-        AppDropDownMenu(menuName = "Select Difficulty:", menuList = Constants.difficulty, text = state.difficulty, onDropDownClick = {
-            event(HomeScreenEvent.SetQuizDifficulty(it))  /* updates the quiz difficulty */
-        })
+            /* Dropdown menu for selecting the difficulty of quiz*/
+            AppDropDownMenu(menuName = "Select Difficulty:", menuList = Constants.difficulty, text = state.difficulty, onDropDownClick = {
+                event(HomeScreenEvent.SetQuizDifficulty(it))  /* updates the quiz difficulty */
+            })
 
-        Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
+            Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
 
-        /*  Dropdown menu for selecting quit type */
-        AppDropDownMenu(menuName = "Select Type:", menuList = Constants.type, text = state.type, onDropDownClick = {
-            event(HomeScreenEvent.SetQuizType(it))  /* updates the quiz type */
-        })
+            /*  Dropdown menu for selecting quit type */
+            AppDropDownMenu(menuName = "Select Type:", menuList = Constants.type, text = state.type, onDropDownClick = {
+                event(HomeScreenEvent.SetQuizType(it))  /* updates the quiz type */
+            })
 
-        Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
+            Spacer(modifier = Modifier.height(Dimens.MediumSpacerHeight))
 
-        /**
-         * Button to generate quiz and navigate to Quiz Screen
-         * @param text , that show's on button
-         * @param padding to give padding , so we can give custome padding while using the button multiple times
-         */
-        ButtonBox(
-            text = "Generate Quiz",
-            padding = Dimens.MediumPadding,
-        ){
-            navController.navigate(
-                route = Routes.QuizScreen.passQuizParams(state.numberOfQuiz,state.category,state.difficulty,state.type)
-            )
+            /**
+             * Button to generate quiz and navigate to Quiz Screen
+             * @param text , that show's on button
+             * @param padding to give padding , so we can give custome padding while using the button multiple times
+             */
+            ButtonBox(
+                text = "Generate Quiz",
+                padding = Dimens.MediumPadding,
+            ){
+                navController.navigate(
+                    route = Routes.QuizScreen.passQuizParams(state.numberOfQuiz,state.category,state.difficulty,state.type)
+                )
+            }
+
+
         }
-
-
     }
+
 }
 
 @Composable

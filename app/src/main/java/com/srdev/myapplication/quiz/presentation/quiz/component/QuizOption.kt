@@ -62,7 +62,9 @@ fun QuizOption(
         label = "startColor"
     ){selectedBox ->
         if(selectedBox) colorResource(id = R.color.s_option_green)
-        else colorResource(id = R.color.option_bg)
+        else {
+            colorResource(id = R.color.white_bg)
+        }
     }
 
     /**

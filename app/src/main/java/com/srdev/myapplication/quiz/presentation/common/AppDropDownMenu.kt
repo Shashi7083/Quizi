@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -76,13 +77,15 @@ fun AppDropDownMenu(
                     focusedTextColor = colorResource(id = R.color.white),
                     unfocusedTrailingIconColor = colorResource(id = R.color.orange),
                     focusedTrailingIconColor = colorResource(id = R.color.orange),
-                    focusedBorderColor = colorResource(id = R.color.dark_slate_blue),
-                    unfocusedBorderColor = colorResource(id = R.color.dark_slate_blue),
-                    containerColor = colorResource(id = R.color.dark_slate_blue),
+                    focusedBorderColor = colorResource(id = R.color.dd_stroke),
+                    unfocusedBorderColor = colorResource(id = R.color.dd_stroke),
+                    containerColor = colorResource(id = R.color.dd_container),
+
                 ),
                 shape = RoundedCornerShape(15.dp),
                 textStyle = TextStyle(
-                    color = colorResource(id = R.color.blue_grey)
+                    color = colorResource(id = R.color.black),
+                    fontWeight = FontWeight.Medium
                 )
             )
 
